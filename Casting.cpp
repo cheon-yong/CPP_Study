@@ -5,18 +5,34 @@ using namespace std;
 class Parent
 {
 public:
-    void Say()
+    Parent()
     {
         cout << "Parent" << endl;
+    }
+    virtual ~Parent()
+    {
+        cout << "~Parent" << endl;
+    }
+    void Say()
+    {
+        cout << "Parent Say" << endl;
     }
 };
 
 class Child : public Parent
 {
 public:
-    void Say()
+    Child()
     {
         cout << "Child" << endl;
+    }
+    virtual ~Child()
+    {
+        cout << "~Child" << endl;
+    }
+    void Say()
+    {
+        cout << "Child Say" << endl;
     }
 
     void ChildOnly()
@@ -116,38 +132,65 @@ int main()
     // // 불가능
     // //int num2 = const_cast<int>(num);
 
-    // 3.3 reinterpret_cast
-    // 문법 reinterpret_cast<변환할 타입>(변환 대상) 
-    // 임의의 포인터타입끼리 변환을 허용하는 캐스트 연산자
-    // 정수형을 포인터로 변환할 수 있으나 이 때 정수값이 포인터의 절대주소로 대입
+    // // 3.3 reinterpret_cast
+    // // 문법 reinterpret_cast<변환할 타입>(변환 대상) 
+    // // 임의의 포인터타입끼리 변환을 허용하는 캐스트 연산자
+    // // 정수형을 포인터로 변환할 수 있으나 이 때 정수값이 포인터의 절대주소로 대입
     
-    // int -> int* 변수 a의 값을 절대주소로 받는 포인터 ptr1
-    // 어떤 주소를 가리킬 지 모른다
-    int a = 71234561;
-    int *ptr1;
-    ptr1 = reinterpret_cast<int*>(a);
+    // // int -> int* 변수 a의 값을 절대주소로 받는 포인터 ptr1
+    // // 어떤 주소를 가리킬 지 모른다
+    // int a = 71234561;
+    // int *ptr1;
+    // ptr1 = reinterpret_cast<int*>(a);
 
-    // int * -> char * 로 형변환
-    // 컴파일러에 따라 다르게 나온다.
-    int *ptr2 = &a;
-    char *c;
-    c = reinterpret_cast<char*>(ptr2);
+    // // int * -> char * 로 형변환
+    // // 컴파일러에 따라 다르게 나온다.
+    // int *ptr2 = &a;
+    // char *c;
+    // c = reinterpret_cast<char*>(ptr2);
 
-    // 출력 안됨
-    cout << *c << endl;
-    // 1 출력 (컴파일러에 따라 다름)
-    printf("%d\n", *c);
+    // // 출력 안됨
+    // cout << *c << endl;
+    // // 1 출력 (컴파일러에 따라 다름)
+    // printf("%d\n", *c);
 
-    //3. struct 내의 첫번째 int -> int *
-    //struct cube에는 int 형 변수 하나만 존재 하므로,
-    //ptr3은 int a변수의 시작점을 잘 가리키고 있습니다
-    strData p;
-    p.a = 20;
-    int * ptr3;
-    ptr3 = reinterpret_cast<int *>(&p);
+    // //3. struct 내의 첫번째 int -> int *
+    // //struct cube에는 int 형 변수 하나만 존재 하므로,
+    // //ptr3은 int a변수의 시작점을 잘 가리키고 있습니다
+    // strData p;
+    // p.a = 20;
+    // int * ptr3;
+    // ptr3 = reinterpret_cast<int *>(&p);
 
-    // 20 출력
-    cout << *ptr3 << endl;
+    // // 20 출력
+    // cout << *ptr3 << endl;
+
+    // // 3.4 dynamic_cast
+    // // 문법 dynamic_cast<변환할 타입>(변환 대상)
+    // // Class의 포인터 또는 참조변수 간 형변환 시 안전하게 down casting을 하기 위해 사용한다.
+    // // 단, 부모 클래스에 virtual 함수가 존재해야 정상 작동한다.
  
+    // // Parent 출력
+    // Parent* ptr_p = new Child();
+
+    // // Child 출력
+    // Child* ptr_c;
+
+    // // Parent Say 출력
+    // ptr_p->Say();
+
+    // ptr_c = dynamic_cast<Child*>(ptr_p);
+
+    // if (ptr_p == nullptr)
+    // {
+    //     cout << "Complie error" << endl;
+    // }
+    // // Child Say 출력
+    // ptr_c->Say();
+
+    // 3.5 bit_cast
+    // 문법 bit_cast<변환할 타입>(변환 대상)
+    // C++ 20에 <bit> 헤더에 bit
+
     return 0;   
 }
