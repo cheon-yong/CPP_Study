@@ -190,7 +190,12 @@ int main()
 
     // 3.5 bit_cast
     // 문법 bit_cast<변환할 타입>(변환 대상)
-    // C++ 20에 <bit> 헤더에 bit
+    // C++ 20에 <bit> 헤더에 bit_cast가 추가되었다. 
+    // bit_cast()는 reinterpret_cast()와 비슷하지만, bit_cast()는 주어진 타겟 타입의 새로운 객체를 생성하고 원본 객체를 비트로 복사한다. 
+    // bit_cast()는 효과적으로 소스 객체를 비트로 해석한다. 
+    // bit_cast()를 사용할 때는 소스와 타겟 객체의 크기가 같아야 하고, 둘다 복사 가능한 형식(trivially copyable)이어야 한다.
+
+
 
     return 0;   
 }
