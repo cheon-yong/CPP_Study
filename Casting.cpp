@@ -25,6 +25,12 @@ public:
     }
 };
 
+struct strData
+{
+    int a;
+};
+
+
 int main()
 {
     // // 1. 묵시적 캐스팅
@@ -78,37 +84,70 @@ int main()
     // c_ptr->Say();
     // c_ptr->ChildOnly();
 
-    // 3.2 const_cast
-    // 문법 const_cast<변환할 타입>(변환 대상)
-    // 포인터 및 참조형에서만 사용 가능
+    // // 3.2 const_cast
+    // // 문법 const_cast<변환할 타입>(변환 대상)
+    // // 포인터 및 참조형에서만 사용 가능
     
-    const int * a = new int(10);
-    int *b;
+    // const int * a = new int(10);
+    // int *b;
 
-    // 10 출력
-    cout << *a << endl;
+    // // 10 출력
+    // cout << *a << endl;
 
-    b = const_cast<int*>(a);
-    *b = 20;
+    // b = const_cast<int*>(a);
+    // *b = 20;
+
+    // // 20 출력
+    // cout << *a << endl;
+
+    // char str[] = "CPP_STUDY";
+    // const char *ptr = str;
+
+    // //CPP_STUDY 출력
+    // cout << str << endl; 
+
+    // char *c = const_cast<char*>(ptr);
+    // c[0] = 'D';
+
+    // // DPP_STUDY 출력
+    // cout << str << endl;
+
+    // const int num = 30;
+    // // 불가능
+    // //int num2 = const_cast<int>(num);
+
+    // 3.3 reinterpret_cast
+    // 문법 reinterpret_cast<변환할 타입>(변환 대상) 
+    // 임의의 포인터타입끼리 변환을 허용하는 캐스트 연산자
+    // 정수형을 포인터로 변환할 수 있으나 이 때 정수값이 포인터의 절대주소로 대입
+    
+    // int -> int* 변수 a의 값을 절대주소로 받는 포인터 ptr1
+    // 어떤 주소를 가리킬 지 모른다
+    int a = 71234561;
+    int *ptr1;
+    ptr1 = reinterpret_cast<int*>(a);
+
+    // int * -> char * 로 형변환
+    // 컴파일러에 따라 다르게 나온다.
+    int *ptr2 = &a;
+    char *c;
+    c = reinterpret_cast<char*>(ptr2);
+
+    // 출력 안됨
+    cout << *c << endl;
+    // 1 출력 (컴파일러에 따라 다름)
+    printf("%d\n", *c);
+
+    //3. struct 내의 첫번째 int -> int *
+    //struct cube에는 int 형 변수 하나만 존재 하므로,
+    //ptr3은 int a변수의 시작점을 잘 가리키고 있습니다
+    strData p;
+    p.a = 20;
+    int * ptr3;
+    ptr3 = reinterpret_cast<int *>(&p);
 
     // 20 출력
-    cout << *a << endl;
-
-    char str[] = "CPP_STUDY";
-    const char *ptr = str;
-
-    //CPP_STUDY 출력
-    cout << str << endl; 
-
-    char *c = const_cast<char*>(ptr);
-    c[0] = 'D';
-
-    // DPP_STUDY 출력
-    cout << str << endl;
-
-    const int num = 30;
-    // 불가능
-    //int num2 = const_cast<int>(num);
-
+    cout << *ptr3 << endl;
+ 
     return 0;   
 }
